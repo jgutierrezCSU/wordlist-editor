@@ -8,42 +8,43 @@ def clean_lines(line):
     return re.findall(r'[^"\s]\S*|".+?"', line) #clean spaces
 
 
-def appnd_nums(filename, num_length,flag):
+def appnd_nums(filename, num_length):
      
     text =open(filename)
-    #check if file is there , if true , delete (clear)
-    if flag =="e":
-        if os.path.isfile("e_"+filename):
-            os.remove("e_"+filename)
-        newfile = open( "e_"+filename, 'a')
-    elif flag =="b":
-        if os.path.isfile("b_"+filename):
-            os.remove("b_"+filename)
-        newfile = open( "b_"+filename, 'a')
-    elif flag =="eb":
-        if os.path.isfile("eb_"+filename):
+    if args.end and args.beg:
+        if os.path.isfile("eb_"+filename): #check if file is there , if true , delete (clear)
             os.remove("eb_"+filename)
         newfile = open( "eb_"+filename, 'a')
+    elif args.end:
+        if os.path.isfile("e_"+filename): #check if file is there , if true , delete (clear)
+            os.remove("e_"+filename)
+        newfile = open( "e_"+filename, 'a')
+    elif args.beg:
+        if os.path.isfile("b_"+filename): #check if file is there , if true , delete (clear)
+            os.remove("b_"+filename)
+        newfile = open( "b_"+filename, 'a')
+    
     for line in text:
         words=clean_lines(line) # parse " " & Spaces
         for word in words:
             print(word)
             counter=0
-            if flag =="e":
-                while counter != 10**num_length:
-                    # concat and append nums to word
-                    newfile.write(word + str(counter) + '\n')
-                    counter += 1
-            elif flag =="b":
-                while counter != 10**num_length:
-                    # concat and append nums to word
-                     newfile.write(str(counter) + word + '\n')
-                     counter += 1
-            elif flag =="eb":
+            if args.end and args.beg:
                 while counter != 10**num_length:
                     # concat and append nums to word
                      newfile.write(str(counter) + word + str(counter)+'\n')
                      counter += 1
+            elif args.end:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                    newfile.write(word + str(counter) + '\n')
+                    counter += 1
+            elif args.beg:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                     newfile.write(str(counter) + word + '\n')
+                     counter += 1
+            
 
     print('saved ...')
 
@@ -72,11 +73,11 @@ args = parser.parse_args();
 print(len(sys.argv))
 if len(sys.argv) == 6:
     if args.end and args.beg:
-        appnd_nums(args.filename,args.end,"eb")
+        appnd_nums(args.filename,args.end)
 if len(sys.argv) == 4:     
     if args.end:
-        appnd_nums(args.filename,args.end,"e")
+        appnd_nums(args.filename,args.end)
     elif args.beg:
-        appnd_nums(args.filename,args.beg,"b")
+        appnd_nums(args.filename,args.beg)
 
 
