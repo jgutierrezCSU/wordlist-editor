@@ -154,23 +154,10 @@ elif argument_length == 6 or argument_length == 7:
         two_arg(args.filename,args.beg)
     elif args.end:
         two_arg(args.filename,args.end)
-    # elif args.end and args.allupper:  ******
-        # print("end allupper")
-    # elif args.end and args.firstlower: ******
-        # print("end firstlower")
-    # elif args.end and args.alllower: ********
-        # print("end alllower")
-# 
+
     elif args.beg:
         two_arg(args.filename,args.beg)
-    # elif args.beg and args.firstupper: *****
-    #     print("beg firstupper")
-    # elif args.beg and args.allupper: ***
-    #     print("beg allupper")
-    # elif args.beg and args.firstlower: ***
-    #     print("beg firstlower")
-    # elif args.beg and args.alllower:*****
-    #     print("beg alllower")
+  
 
 elif argument_length == 8 or argument_length == 9:
     print("here")
