@@ -64,20 +64,59 @@ parser.add_argument("--end",type =int,help='adds digits (0-9) at end of each wor
 parser.add_argument("--beg",type =int ,help='adds digits (0-9) at beginning of each word.Pass in Num of digits') 
 
 #exclusive
-group.add_argument("--firstcap",type =int )
-group.add_argument("--allcap",type =int )  
+group.add_argument("--firstupper",action="store_true") #no argument needed w/ action="store_true"  
+group.add_argument("--allupper",action="store_true" )  
+group.add_argument("--firstlower",action="store_true")
+group.add_argument("--alllower",action="store_true")  
 
 #bind the arguments
 args = parser.parse_args();
+argument_length=len(sys.argv)
+
+print(argument_length)
+
+#single argument
+if argument_length == 3 or argument_length == 4:
+    if args.end:  # append at end
+        appnd_nums(args.filename,args.end)
+    elif args.beg:  # append at beg 
+        appnd_nums(args.filename,args.beg)
+    elif args.firstupper:
+        print("firstupper")
+    elif args.allupper:
+        print("allupper")
+    elif args.firstlower:
+        print("firstlower")
+    elif args.alllower:
+        print("alllower")
+# two arguments
+elif argument_length == 5 or argument_length == 6:
+    if args.end and args.beg: # append at beg and end
+        if args.end != args.beg:
+            print("--> Num of digits need to be the same")
+            exit()
+        appnd_nums(args.filename,args.beg)
+    elif args.end and args.firstupper:
+        print("end firstupper")
+    elif args.end and args.allupper:
+        print("end allupper")
+    elif args.end and args.firstlower:
+        print("end firstlower")
+    elif args.end and args.alllower:
+        print("end alllower")
+
+    
+    elif args.beg and args.firstupper:
+        print("beg firstupper")
+    elif args.beg and args.allupper:
+        print("beg allupper")
+    elif args.beg and args.firstlower:
+        print("beg firstlower")
+    elif args.beg and args.alllower:
+        print("beg alllower")
+
+elif argument_length == 7 or argument_length == 8:
+    print("here")
 
 
-if args.end and args.beg: # append at beg and end
-    if args.end != args.beg:
-        print("--> Num of digits need to be the same")
-        exit()
-    appnd_nums(args.filename,args.beg)
-elif args.end:  # append at end
-    appnd_nums(args.filename,args.end)
-elif args.beg:  # append at beg 
-    appnd_nums(args.filename,args.beg)
 
