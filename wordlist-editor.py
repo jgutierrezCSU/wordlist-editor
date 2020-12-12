@@ -20,6 +20,10 @@ def appnd_nums(filename, num_length,flag):
         if os.path.isfile("b_"+filename):
             os.remove("b_"+filename)
         newfile = open( "b_"+filename, 'a')
+    elif flag =="eb":
+        if os.path.isfile("eb_"+filename):
+            os.remove("eb_"+filename)
+        newfile = open( "eb_"+filename, 'a')
     for line in text:
         words=clean_lines(line) # parse " " & Spaces
         for word in words:
@@ -34,6 +38,11 @@ def appnd_nums(filename, num_length,flag):
                 while counter != 10**num_length:
                     # concat and append nums to word
                      newfile.write(str(counter) + word + '\n')
+                     counter += 1
+            elif flag =="eb":
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                     newfile.write(str(counter) + word + str(counter)+'\n')
                      counter += 1
 
     print('saved ...')
