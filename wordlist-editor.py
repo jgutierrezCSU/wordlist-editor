@@ -12,30 +12,10 @@ def single_arg(filename, num_length):
      
     text =open(filename)
     
-    if args.end:
-        if os.path.isfile("e_"+filename): #check if file is there , if true , delete (clear)
-            os.remove("e_"+filename)
-        newfile = open( "e_"+filename, 'a')
-    elif args.beg:
-        if os.path.isfile("b_"+filename): #check if file is there , if true , delete (clear)
-            os.remove("b_"+filename)
-        newfile = open( "b_"+filename, 'a')
-    elif args.firstupper:
-        if os.path.isfile("fU_"+filename): #check if file is there , if true , delete (clear)
-            os.remove("fU_"+filename)
-        newfile = open( "fU_"+filename, 'a')
-    elif args.allupper:
-        if os.path.isfile("aU_"+filename): #check if file is there , if true , delete (clear)
-            os.remove("aU_"+filename)
-        newfile = open( "aU_"+filename, 'a')
-    elif args.alllower:
-        if os.path.isfile("aL_"+filename): #check if file is there , if true , delete (clear)
-            os.remove("aL_"+filename)
-        newfile = open( "aL_"+filename, 'a')
-    elif args.firstlower:
-        if os.path.isfile("fL_"+filename): #check if file is there , if true , delete (clear)
-            os.remove("fL_"+filename)
-        newfile = open( "fL_"+filename, 'a')
+    
+    if os.path.isfile(args.outfilename): #check if file is there , if true , delete (clear)
+        os.remove(args.outfilename)
+    newfile = open(args.outfilename, 'a')
     
     for line in text:
         words=clean_lines(line) # parse " " & Spaces
@@ -71,25 +51,10 @@ def single_arg(filename, num_length):
 def two_arg(filename, num_length):
 
     text =open(filename)
-    if args.end and args.beg:
-        if os.path.isfile("eb_"+filename): #check if file is there , if true , delete (clear)
-            os.remove("eb_"+filename)
-        newfile = open( "eb_"+filename, 'a')
-
-    elif args.end and args.firstupper:
-        if os.path.isfile("efU_"+filename): #check if file is there , if true , delete (clear)
-            os.remove("efU_"+filename)
-        newfile = open( "efU_"+filename, 'a')
-
-    elif args.end and args.allupper:
-        if os.path.isfile("eaU_"+filename): #check if file is there , if true , delete (clear)
-            os.remove("eaU_"+filename)
-        newfile = open( "eaU_"+filename, 'a')
-
-    elif args.end and args.firstlower:
-        if os.path.isfile("efL_"+filename): #check if file is there , if true , delete (clear)
-            os.remove("efL_"+filename)
-        newfile = open( "efL_"+filename, 'a')
+    
+    if os.path.isfile(args.outfilename): #check if file is there , if true , delete (clear)
+        os.remove(args.outfilename)
+    newfile = open(args.outfilename, 'a')
 
     for line in text:
         words=clean_lines(line) # parse " " & Spaces
@@ -120,7 +85,7 @@ def two_arg(filename, num_length):
     print('saved ...')
 
 #check that filename was given
-if len(sys.argv) == 1:
+if len(sys.argv) == 2:
     print("Needs file name or path as argument")
 
     
@@ -129,6 +94,7 @@ if len(sys.argv) == 1:
 parser = argparse.ArgumentParser()
 group = parser.add_mutually_exclusive_group()
 parser.add_argument("filename",help='File to edit') #required argument
+parser.add_argument("outfilename",help='Name of your outfile') #required argument
 parser.add_argument("--end",type =int,help='adds digits (0-9) at end of each word.Pass in Num of digits' ) 
 parser.add_argument("--beg",type =int ,help='adds digits (0-9) at beginning of each word.Pass in Num of digits') 
 
@@ -145,17 +111,18 @@ argument_length=len(sys.argv)
 print(argument_length)
 
 #single argument
-if argument_length == 3 or argument_length == 4:
+if argument_length == 4 or argument_length == 5:
     if args.end:  # append at end
         single_arg(args.filename,args.end)
     elif args.beg:  # append at beg 
         single_arg(args.filename,args.beg)
     
-    single_arg(args.filename,-1)
+    else:
+        single_arg(args.filename,-1)
     
 
 # two arguments
-elif argument_length == 5 or argument_length == 6:
+elif argument_length == 6 or argument_length == 7:
     if args.end and args.beg: # append at beg and end
         if args.end != args.beg:
             print("--> Num of digits need to be the same")
@@ -180,7 +147,7 @@ elif argument_length == 5 or argument_length == 6:
     elif args.beg and args.alllower:
         print("beg alllower")
 
-elif argument_length == 7 or argument_length == 8:
+elif argument_length == 8 or argument_length == 9:
     print("here")
 
 
