@@ -76,10 +76,20 @@ def two_arg(filename, num_length):
             os.remove("eb_"+filename)
         newfile = open( "eb_"+filename, 'a')
 
-    if args.end and args.firstupper:
+    elif args.end and args.firstupper:
         if os.path.isfile("efU_"+filename): #check if file is there , if true , delete (clear)
             os.remove("efU_"+filename)
         newfile = open( "efU_"+filename, 'a')
+
+    elif args.end and args.allupper:
+        if os.path.isfile("eaU_"+filename): #check if file is there , if true , delete (clear)
+            os.remove("eaU_"+filename)
+        newfile = open( "eaU_"+filename, 'a')
+
+    elif args.end and args.firstlower:
+        if os.path.isfile("efL_"+filename): #check if file is there , if true , delete (clear)
+            os.remove("efL_"+filename)
+        newfile = open( "efL_"+filename, 'a')
 
     for line in text:
         words=clean_lines(line) # parse " " & Spaces
@@ -95,6 +105,16 @@ def two_arg(filename, num_length):
                 while counter != 10**num_length:
                     # concat and append nums to word
                     newfile.write(word[0].upper() + word[1:]+ str(counter) + '\n')
+                    counter += 1
+            elif args.end and args.allupper:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                    newfile.write(word.upper() + str(counter) + '\n')
+                    counter += 1
+            elif args.end and args.firstlower:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                    newfile.write(word[0].lower() + word[1:]+ str(counter) + '\n')
                     counter += 1
 
     print('saved ...')
@@ -141,15 +161,15 @@ elif argument_length == 5 or argument_length == 6:
             print("--> Num of digits need to be the same")
             exit()
         two_arg(args.filename,args.beg)
-    elif args.end and args.firstupper:
+    elif args.end:
         two_arg(args.filename,args.end)
-    elif args.end and args.allupper:
-        print("end allupper")
-    elif args.end and args.firstlower:
-        print("end firstlower")
-    elif args.end and args.alllower:
-        print("end alllower")
-
+    # elif args.end and args.allupper:  ******
+        # print("end allupper")
+    # elif args.end and args.firstlower: ******
+        # print("end firstlower")
+    # elif args.end and args.alllower:
+        # print("end alllower")
+# 
     
     elif args.beg and args.firstupper:
         print("beg firstupper")
