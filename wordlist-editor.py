@@ -8,14 +8,11 @@ def clean_lines(line):
     return re.findall(r'[^"\s]\S*|".+?"', line) #clean spaces
 
 
-def appnd_nums(filename, num_length):
+def single_arg(filename, num_length):
      
     text =open(filename)
-    if args.end and args.beg:
-        if os.path.isfile("eb_"+filename): #check if file is there , if true , delete (clear)
-            os.remove("eb_"+filename)
-        newfile = open( "eb_"+filename, 'a')
-    elif args.end:
+    
+    if args.end:
         if os.path.isfile("e_"+filename): #check if file is there , if true , delete (clear)
             os.remove("e_"+filename)
         newfile = open( "e_"+filename, 'a')
@@ -43,12 +40,31 @@ def appnd_nums(filename, num_length):
                 while counter != 10**num_length:
                     # concat and append nums to word
                      newfile.write(str(counter) + word + '\n')
-                     counter += 1
-            
+                     counter += 1        
 
     print('saved ...')
 
-    
+
+def two_arg(filename, num_length):
+
+    text =open(filename)
+    if args.end and args.beg:
+        if os.path.isfile("eb_"+filename): #check if file is there , if true , delete (clear)
+            os.remove("eb_"+filename)
+        newfile = open( "eb_"+filename, 'a')
+
+    for line in text:
+        words=clean_lines(line) # parse " " & Spaces
+        for word in words:
+            print(word)
+            counter=0
+            if args.end and args.beg:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                     newfile.write(str(counter) + word + str(counter)+'\n')
+                     counter += 1    
+
+    print('saved ...')
 
 #check that filename was given
 if len(sys.argv) == 1:
@@ -78,9 +94,9 @@ print(argument_length)
 #single argument
 if argument_length == 3 or argument_length == 4:
     if args.end:  # append at end
-        appnd_nums(args.filename,args.end)
+        single_arg(args.filename,args.end)
     elif args.beg:  # append at beg 
-        appnd_nums(args.filename,args.beg)
+        single_arg(args.filename,args.beg)
     elif args.firstupper:
         print("firstupper")
     elif args.allupper:
@@ -89,13 +105,14 @@ if argument_length == 3 or argument_length == 4:
         print("firstlower")
     elif args.alllower:
         print("alllower")
+
 # two arguments
 elif argument_length == 5 or argument_length == 6:
     if args.end and args.beg: # append at beg and end
         if args.end != args.beg:
             print("--> Num of digits need to be the same")
             exit()
-        appnd_nums(args.filename,args.beg)
+        two_arg(args.filename,args.beg)
     elif args.end and args.firstupper:
         print("end firstupper")
     elif args.end and args.allupper:
