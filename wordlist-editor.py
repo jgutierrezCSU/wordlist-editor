@@ -70,14 +70,14 @@ group.add_argument("--allcap",type =int )
 #bind the arguments
 args = parser.parse_args();
 
-print(len(sys.argv))
-if len(sys.argv) == 6:
-    if args.end and args.beg:
-        appnd_nums(args.filename,args.end)
-if len(sys.argv) == 4:     
-    if args.end:
-        appnd_nums(args.filename,args.end)
-    elif args.beg:
-        appnd_nums(args.filename,args.beg)
 
+if args.end and args.beg: # append at beg and end
+    if args.end != args.beg:
+        print("--> Num of digits need to be the same")
+        exit()
+    appnd_nums(args.filename,args.beg)
+elif args.end:  # append at end
+    appnd_nums(args.filename,args.end)
+elif args.beg:  # append at beg 
+    appnd_nums(args.filename,args.beg)
 
