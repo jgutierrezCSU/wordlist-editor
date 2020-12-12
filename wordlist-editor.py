@@ -51,7 +51,7 @@ def single_arg(filename, num_length):
 def two_arg(filename, num_length):
 
     text =open(filename)
-    
+
     if os.path.isfile(args.outfilename): #check if file is there , if true , delete (clear)
         os.remove(args.outfilename)
     newfile = open(args.outfilename, 'a')
@@ -81,7 +81,31 @@ def two_arg(filename, num_length):
                     # concat and append nums to word
                     newfile.write(word[0].lower() + word[1:]+ str(counter) + '\n')
                     counter += 1
-
+            elif args.end and args.alllower:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                    newfile.write(word.lower() + str(counter) + '\n')
+                    counter += 1
+            elif args.beg and args.firstupper:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                    newfile.write( str(counter) + word[0].upper() + word[1:] + '\n')
+                    counter += 1
+            elif args.beg and args.allupper:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                    newfile.write( str(counter) + word.upper()  + '\n')
+                    counter += 1
+            elif args.beg and args.firstlower:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                    newfile.write( str(counter) + word[0].lower() + word[1:] + '\n')
+                    counter += 1
+            elif args.beg and args.alllower:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                    newfile.write( str(counter) + word.lower()  + '\n')
+                    counter += 1
     print('saved ...')
 
 #check that filename was given
@@ -134,18 +158,19 @@ elif argument_length == 6 or argument_length == 7:
         # print("end allupper")
     # elif args.end and args.firstlower: ******
         # print("end firstlower")
-    # elif args.end and args.alllower:
+    # elif args.end and args.alllower: ********
         # print("end alllower")
 # 
-    
-    elif args.beg and args.firstupper:
-        print("beg firstupper")
-    elif args.beg and args.allupper:
-        print("beg allupper")
-    elif args.beg and args.firstlower:
-        print("beg firstlower")
-    elif args.beg and args.alllower:
-        print("beg alllower")
+    elif args.beg:
+        two_arg(args.filename,args.beg)
+    # elif args.beg and args.firstupper: *****
+    #     print("beg firstupper")
+    # elif args.beg and args.allupper: ***
+    #     print("beg allupper")
+    # elif args.beg and args.firstlower: ***
+    #     print("beg firstlower")
+    # elif args.beg and args.alllower:*****
+    #     print("beg alllower")
 
 elif argument_length == 8 or argument_length == 9:
     print("here")
