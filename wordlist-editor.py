@@ -108,9 +108,47 @@ def two_arg(filename, num_length):
                     counter += 1
     print('saved ...')
 
+
+
+def three_arg(filename, num_length):
+    text =open(filename)
+
+    if os.path.isfile(args.outfilename): #check if file is there , if true , delete (clear)
+        os.remove(args.outfilename)
+    newfile = open(args.outfilename, 'a')
+
+    for line in text:
+        words=clean_lines(line) # parse " " & Spaces
+        for word in words:
+            print(word)
+            counter=0
+            if args.end and args.beg and args.allupper:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                     newfile.write(str(counter) + word.upper() + str(counter)+'\n')
+                     counter += 1 
+            if args.end and args.beg and args.firstupper:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                     newfile.write(str(counter) + word[0].upper()+ word[1:]+ str(counter)+'\n')
+                     counter += 1 
+            if args.end and args.beg and args.alllower:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                     newfile.write(str(counter) + word.lower() + str(counter)+'\n')
+                     counter += 1 
+            if args.end and args.beg and args.firstlower:
+                while counter != 10**num_length:
+                    # concat and append nums to word
+                     newfile.write(str(counter) + word[0].lower()+ word[1:]+ str(counter)+'\n')
+                     counter += 1 
+
+
+    print('saved ...')
 #check that filename was given
-if len(sys.argv) == 2:
-    print("Needs file name or path as argument")
+if len(sys.argv) == 3:
+    print("----> Needs arguments")
+    exit()
 
     
 
@@ -158,9 +196,12 @@ elif argument_length == 6 or argument_length == 7:
     elif args.beg:
         two_arg(args.filename,args.beg)
   
+    # three argumets
+elif argument_length == 8:
+    three_arg(args.filename,args.beg)
+    
 
-elif argument_length == 8 or argument_length == 9:
-    print("here")
+    
 
 
 
