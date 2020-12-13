@@ -44,6 +44,10 @@ def single_arg(filename, num_length):
 
             elif args.alllower:
                 newfile.write(word.lower() + '\n')
+            elif args.manfin:
+                newfile.write(  word + args.manfin + '\n')
+            elif args.manbeg:
+                newfile.write(args.manbeg + word + '\n')
 
     print('saved ...')
 
@@ -159,6 +163,10 @@ parser.add_argument("filename",help='File to edit') #required argument
 parser.add_argument("outfilename",help='Name of your outfile') #required argument
 parser.add_argument("--end",type =int,help='adds digits (0-9) at end of each word.Pass in Num of digits' ) 
 parser.add_argument("--beg",type =int ,help='adds digits (0-9) at beginning of each word.Pass in Num of digits') 
+# need to work on this
+parser.add_argument("--manfin",help='manually add input to end of each word') 
+parser.add_argument("--manbeg",help='manually add input to beginning of each word') 
+
 
 #exclusive
 group.add_argument("--firstupper",action="store_true",help='first letter to upper') #no argument needed w/ action="store_true"  
