@@ -110,6 +110,24 @@ def two_arg(filename, num_length):
                     # concat and append nums to word
                     newfile.write( str(counter) + word.lower()  + '\n')
                     counter += 1
+            elif args.manbeg and args.firstupper:
+                    newfile.write( args.manbeg + word[0].upper() + word[1:]+ '\n')
+            elif args.manbeg and args.allupper:
+                    newfile.write( args.manbeg + word.upper() + '\n')
+            elif args.manbeg and args.firstlower:
+                    newfile.write( args.manbeg + word[0].lower() + word[1:]+ '\n')
+            elif args.manbeg and args.alllower:
+                    newfile.write( args.manbeg + word.lower() + '\n')
+            elif args.manfin and args.firstupper:
+                    newfile.write(  word[0].upper() + word[1:]+ args.manfin+ '\n')
+            elif args.manfin and args.allupper:
+                    newfile.write(   word.upper() + args.manfin + '\n')
+            elif args.manfin and args.firstlower:
+                    newfile.write(  word[0].lower() + word[1:]+ args.manfin+ '\n')
+            elif args.manfin and args.alllower:
+                    newfile.write(   word.lower() + args.manfin + '\n')
+                    
+
     print('saved ...')
 
 
@@ -169,10 +187,10 @@ parser.add_argument("--manbeg",help='manually add input to beginning of each wor
 
 
 #exclusive
-group.add_argument("--firstupper",action="store_true",help='first letter to upper') #no argument needed w/ action="store_true"  
-group.add_argument("--allupper",action="store_true" ,help='all letters to upper')  
-group.add_argument("--firstlower",action="store_true",help='first letter to lower')
-group.add_argument("--alllower",action="store_true",help='all letter to lower')  
+group.add_argument("--firstupper",action="store_true",help='first letter to upper,if combine w/ "--manfin" or "--manbeg", applies to word from wordlist only' ) #no argument needed w/ action="store_true"  
+group.add_argument("--allupper",action="store_true" ,help='all letters to upper,if combine w/ "--manfin" or "--manbeg", applies to word from wordlist only')  
+group.add_argument("--firstlower",action="store_true",help='first letter to lower, if combine w/ "--manfin" or "--manbeg", applies to word from wordlist only')
+group.add_argument("--alllower",action="store_true",help='all letter to lower,if combine w/ "--manfin" or "--manbeg", applies to word from wordlist only')  
 
 #bind the arguments
 args = parser.parse_args();
@@ -203,6 +221,8 @@ elif argument_length == 6 or argument_length == 7:
 
     elif args.beg:
         two_arg(args.filename,args.beg)
+    else:
+        two_arg(args.filename,-1)
   
     # three argumets
 elif argument_length == 8:
