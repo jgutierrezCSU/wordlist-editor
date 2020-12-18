@@ -20,7 +20,7 @@ def single_arg(filename, num_length):
     for line in text:
         words=clean_lines(line) # parse " " & Spaces
         for word in words:
-            print(word)
+            #print(word)
             counter=0
 
             if args.end:
@@ -48,6 +48,8 @@ def single_arg(filename, num_length):
                 newfile.write(  word + args.manfin + '\n')
             elif args.manbeg:
                 newfile.write(args.manbeg + word + '\n')
+            else:
+                print("argument no good")
 
     print('saved ...')
 
@@ -63,7 +65,7 @@ def two_arg(filename, num_length):
     for line in text:
         words=clean_lines(line) # parse " " & Spaces
         for word in words:
-            print(word)
+            #print(word)
             counter=0
             if args.end and args.beg:
                 while counter != 10**num_length:
@@ -142,7 +144,7 @@ def three_arg(filename, num_length):
     for line in text:
         words=clean_lines(line) # parse " " & Spaces
         for word in words:
-            print(word)
+            #print(word)
             counter=0
             if args.end and args.beg and args.allupper:
                 while counter != 10**num_length:
@@ -177,14 +179,15 @@ if len(sys.argv) == 3:
 #for argparser
 parser = argparse.ArgumentParser()
 group = parser.add_mutually_exclusive_group()
-group2 = parser.add_mutually_exclusive_group()
+
+
 parser.add_argument("filename",help='File to edit') #required argument
 parser.add_argument("outfilename",help='Name of your outfile') #required argument
-group2.add_argument("--end",type =int,help='adds digits (0-9) at end of each word.Pass in Num of digits' ) 
-group2.add_argument("--beg",type =int ,help='adds digits (0-9) at beginning of each word.Pass in Num of digits') 
+parser.add_argument("--end",type =int,help='adds digits (0-9) at end of each word.Pass in Num of digits , exclusive w/ "--manfin" or "--manbeg"' ) 
+parser.add_argument("--beg",type =int ,help='adds digits (0-9) at beginning of each word.Pass in Num of digits, exclusive w/ "--manfin" or "--manbeg"') 
 
-group2.add_argument("--manfin",help='manually add input to end of each word') 
-group2.add_argument("--manbeg",help='manually add input to beginning of each word') 
+parser.add_argument("--manfin",help='manually add input to end of each word') 
+parser.add_argument("--manbeg",help='manually add input to beginning of each word') 
 
 
 #exclusive
@@ -197,8 +200,14 @@ group.add_argument("--alllower",action="store_true",help='all letter to lower,if
 args = parser.parse_args();
 argument_length=len(sys.argv)
 
+#manually add exclusion with these 4 arguments
 print(argument_length)
-
+if args.end and args.manfin or args.end and args.manbeg:
+    print("Exclusive argumenst : Use --help : arguments not allowed ") 
+    exit()
+if args.beg and args.manfin or args.beg and args.manbeg:
+    print("Exclusive argumenst : Use --help : arguments not allowed ") 
+    exit()
 #single argument
 if argument_length == 4 or argument_length == 5:
     if args.end:  # append at end
